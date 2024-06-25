@@ -48,7 +48,8 @@ def auchan():
             'https://www.auchan.pt/pt/alimentacao/produtos-lacteos/leites/leite-uht/leite-mimosa-uht-meio-gordo-1l/11885.html',
             'https://www.auchan.pt/pt/produtos-frescos/fruta/macas-peras-e-uvas/maca-gala-auchan-kg/3356631.html',
             'https://www.auchan.pt/pt/produtos-frescos/fruta/macas-peras-e-uvas/pera-rocha-auchan-kg/3356405.html',
-            'https://www.auchan.pt/pt/produtos-frescos/fruta/laranjas-clementinas-e-limoes/laranja-algarve-igp-auchan-cultivamos-o-bom-kg/547063.html',
+            # 'https://www.auchan.pt/pt/produtos-frescos/fruta/laranjas-clementinas-e-limoes/laranja-do-algarve-igp-auchan-kg/3374907.html'
+            'https://www.auchan.pt/pt/produtos-frescos/fruta/laranjas-clementinas-e-limoes/laranja-do-algarve-igp-auchan-cultivamos-o-bom-1.5-kg/3274212.html'
             'https://www.auchan.pt/pt/produtos-frescos/queijaria/queijo-fatiado-e-barra/queijo-flamengo-auchan-a-mesa-em-portugal-acores-fatias-500g/3352009.html',
             'https://www.auchan.pt/pt/produtos-frescos/legumes/abobora-cenoura-e-alho-frances/cenoura-auchan-kg/3374234.html',
             'https://www.auchan.pt/pt/produtos-frescos/legumes/couves-brocolos-e-espinafres/brocolos-kg/20649.html',
@@ -62,19 +63,26 @@ def auchan():
             'https://www.auchan.pt/pt/produtos-frescos/ovos/ovos-de-galinhas-criadas-no-solo/ovos-auchan-galinhas-solo-classe-m-uma-duzia/2945539.html',
             'https://www.auchan.pt/pt/beleza-e-higiene/papel-higienico-e-lencos-papel/papel-higienico-eco-e-premium/papel-higienico-auchan-ecologico-2-folhas-100-pasta-reciclada-12-rolos-%3D-24-rolos/3347366.html',
             'https://www.auchan.pt/pt/alimentacao/mercearia/batatas-fritas-e-aperitivos-snacks/batatas-com-sabores/batatas-auchan-fritas-girassol-camponesas-150g/1182735.html']
-
+    print("--------------------------------------------------------------")
+    loja = "Auchan"
+    print(loja)
     for url in urls:
         response = requests.get(url)
-        soup = BeautifulSoup(response.text, 'html-parser')
-
-        loja = soup.find() 
-        nome = soup.find('h1')
-        # preco =
-        # categoria =
-        # rating = 
-        # reviews =
-        # reviews_nr = 
-        
+        soup = BeautifulSoup(response.text, 'html.parser')
+        print()
+        print("--------------------------------------------------------------")
+        print()
+        nome = soup.find('h1', class_="product-name auc-hero-title").get_text(strip=True)
+        print("Nome: ", nome)
+        print()        
+        spanParent = soup.find('span', class_="sales")
+        preco = spanParent.findChild('span', class_="value").get_text(strip=True)
+        print("Preço: ", preco)
+        print()
+        categorias = soup.find_all(class_="breadcrumb-item")
+        subcat = categorias[1].text 
+        print(subcat)
+    print("--------------------------------------------------------------")
 
 if __name__=='__main__':
-    continente()
+    auchan()
